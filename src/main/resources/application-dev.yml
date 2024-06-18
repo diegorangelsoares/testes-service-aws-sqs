@@ -1,0 +1,45 @@
+server:
+  port: ${PORT:8082}
+
+spring:
+  application:
+    name: teste-service
+  mvc:
+    pathmatch:
+      matching-strategy: ant-path-matcher
+  jpa:
+    hibernate:
+      ddl-auto: none
+    database: POSTGRESQL
+    database-platform: org.hibernate.dialect.PostgreSQL9Dialect
+    properties:
+      hibernate:
+        default_schema: public
+        enable_lazy_load_no_trans: true
+        temp:
+          use_jdbc_metadata_defaults: false
+        jdbc:
+          lob:
+            non_contextual_creation: true
+  datasource:
+    tomcat:
+      default-auto-commit: false
+    url: ${DB_URL:jdbc:postgresql://localhost:5433/testes}
+    username: ${DB_USER:postgres}
+    password: ${DB_PASS:postgres}
+    driverClassName: org.postgresql.Driver
+    type: com.zaxxer.hikari.HikariDataSource
+    hikari:
+      minimum-idle: 5
+      maximum-pool-size: 20
+      pool-name: pool-teste
+      auto-commit: false
+  jackson:
+    time-zone: Brazil/East
+    locale: pt-BR
+    serialization:
+      write-dates-as-timestamps: false
+  sql:
+    init:
+      continue-on-error: true
+      platform: postgres

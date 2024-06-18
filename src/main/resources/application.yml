@@ -1,0 +1,67 @@
+server:
+  port: ${PORTA:8082}
+
+spring:
+  application:
+    name: teste-service
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+#    database: POSTGRESQL
+#    database-platform: org.hibernate.dialect.PostgreSQL9Dialect
+#    properties:
+#      hibernate:
+#        default_schema: real_privado
+#        enable_lazy_load_no_trans: true
+#        temp:
+#          use_jdbc_metadata_defaults: false
+#        jdbc:
+#          lob:
+#            non_contextual_creation: true
+  datasource:
+#    tomcat:
+#      default-auto-commit: false
+    url: jdbc:postgresql://${DB_HOST:localhost}:${DB_PORT:5433}/${DB_NAME:testes}
+    username: ${DB_USER:postgres}
+    password: ${DB_PASS:postgres}
+    driverClassName: org.postgresql.Driver
+#    type: com.zaxxer.hikari.HikariDataSource
+#    hikari:
+#      minimum-idle: 5
+#      maximum-pool-size: 20
+#      pool-name: pool-testes
+#      auto-commit: false
+#  #  liquibase:
+##    enabled: true
+##    change-log: classpath:/data/db.changelog.yaml
+#  jackson:
+#    time-zone: Brazil/East
+#    locale: pt-BR
+#    serialization:
+#      write-dates-as-timestamps: false
+#  sql:
+#    init:
+#      continue-on-error: true
+#      platform: postgres
+
+application:
+  api-info:
+    titulo: Testes Service API
+    descricao: Api para controle de testes
+    versao: '@project.version@'
+    pacote: com.diego.testes
+
+testes:
+  aws:
+    sqs:
+      url: ${TESTES_SQS_NOME_FILA:fila}
+      retry:
+        url: ${TESTES_SQS_RETRY_URL:fila}
+      accessKey: ${SQS_ACCESS_KEY:access_key}
+      secretKey: ${SQS_SECRET_KEY:secret_key}
+      enableAwsRoleAuth: ${SQS_ENABLE_AWS_ROLE_AUTH:false}
+      callbackQueue: ${TESTES_CALLBACK_QUEUE:testes-sms-callback}
+    region: ${AWS_REGION:us-east-1}
+    apiGateway:
+      sqs: ${API_GATEWAY_SQS:testes-sms-dev}
